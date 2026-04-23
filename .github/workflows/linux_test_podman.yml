@@ -39,20 +39,9 @@ jobs:
           minc status
 
       - name: Install oc
-        shell: bash
-        run: |
-          if [ ${{ runner.arch }} = "X64" ]; then
-            OC_ARCH="amd64"
-            URL="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz"
-          else
-            OC_ARCH="arm64"
-            URL="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux-${OC_ARCH}.tar.gz"
-          fi
-          FILENAME="openshift-client-linux-${OC_ARCH}.tar.gz"
-          echo "Downloading $URL"
-          curl -H user-agent:minc-ci -L "$URL" -o openshift-client-linux-${OC_ARCH}.tar.gz --max-time 300 --fail
-          tar -xzf "$FILENAME"
-          sudo mv oc kubectl /usr/bin/
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: "4"
 
       - name : Test if generate kubeconfig works as expected
         shell: bash
