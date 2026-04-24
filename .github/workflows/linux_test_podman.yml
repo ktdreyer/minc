@@ -39,7 +39,7 @@ jobs:
           minc status
 
       - name: Install oc
-        uses: redhat-actions/openshift-tools-installer@v1
+        uses: ktdreyer/openshift-tools-installer@fix-arm64-ocp-filter
         with:
           oc: "4"
 
